@@ -22,10 +22,21 @@ namespace US001_ChudoObyv.Pages
     public partial class ProductListPage : Page
     {
         public static List<Product> products { get; set; }
+        public static List<Size_Product> sizesPr { get; set; }
+        public static string Res;
         public ProductListPage()
         {
             InitializeComponent();
             products = new List<Product>(ConnectionString.obyvEntities.Product.ToList());
+            sizesPr = new List<Size_Product>(ConnectionString.obyvEntities.Size_Product.ToList());
+            foreach (var product in products)
+            {
+                if(Convert.ToInt32(sizesPr.Count(i => i.IdProduct == product.Id)) > 5)
+                        Res = "Мало";
+            }
+
+            
+
             this.DataContext = this;
         }
     }
